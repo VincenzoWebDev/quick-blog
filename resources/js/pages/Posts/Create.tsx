@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import FrontLayout from "@/layouts/front-layout"
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 
 export default function Create() {
     const { data, setData, post, processing, errors }:
@@ -52,8 +53,8 @@ export default function Create() {
                     <input type="file" name="image" id="image" className="w-full p-2 border border-gray-300" onChange={handleFile} />
                 </div>
                 <div className="flex">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-800 transition-all text-white p-2 me-3" disabled={processing}>{processing ? 'Invio...' : 'Salva'}</button>
-                    <Link href={route('posts.index')} className="bg-red-500 hover:bg-red-800 transition-all text-white p-2">Annulla</Link>
+                    <Button type="submit" className="bg-blue-500 hover:bg-blue-800 transition-all text-white p-2 me-3" disabled={processing}>{processing ? 'Invio...' : 'Salva'}</Button>
+                    <Button onClick={(e) => router.get(route('posts.index'))} type="button" className="bg-red-500 hover:bg-red-800 transition-all text-white p-2">Annulla</Button>
                 </div>
             </form>
         </FrontLayout>

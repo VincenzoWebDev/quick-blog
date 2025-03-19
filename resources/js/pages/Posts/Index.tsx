@@ -26,10 +26,16 @@ const Index = ({ posts }: { posts: any }) => {
         }
     }
 
+    const handleShow = (e: any) => {
+        e.preventDefault();
+        const post = e.target.dataset.id;
+        router.get(route('posts.show', post));
+    }
+
     return (
         <FrontLayout>
             <h1 className="font-bold text-3xl my-3">Lista Posts</h1>
-            <Link href={route('posts.create')} className="bg-blue-500 hover:bg-blue-800 transition-all text-white p-2">Crea nuovo post</Link>
+            <Button onClick={(e) => router.get(route('posts.create'))} className="bg-blue-500 hover:bg-blue-800 transition-all text-white p-2">Crea nuovo post</Button>
             <div className="grid grid-cols-4 gap-3 my-5">
                 {posts.map((post: any) => (
                     <div className="bg-gray-100 p-4" key={post.id}>
@@ -37,9 +43,9 @@ const Index = ({ posts }: { posts: any }) => {
                         <h3 className="text-indigo-800 font-bold">{post.title}</h3>
                         <p className="text-gray-600">{post.content}</p>
                         <div className="flex justify-between mt-3">
-                            {/* <button onClick={handleEdit} className="bg-green-600 hover:bg-green-800 transition-all text-white p-2">Modifica</button> */}
                             <Button onClick={handleDelete} data-id={post.id} className="bg-red-500 hover:bg-red-800 transition-all text-white p-2">Elimina</Button>
-                            <EditForm post={post} />
+                            <Button onClick={handleShow} data-id={post.id} className="bg-blue-500 hover:bg-blue-800 transition-all text-white p-2">Visualizza</Button>
+                            <ButtonEditForm post={post} />
                         </div>
                     </div>
                 ))}
@@ -48,7 +54,7 @@ const Index = ({ posts }: { posts: any }) => {
     );
 }
 
-const EditForm = ({ post }: { post: any }) => {
+const ButtonEditForm = ({ post }: { post: any }) => {
     const [open, setOpen] = useState(false);
     const { data, setData, patch, errors, processing } = useForm({
         title: post.title,

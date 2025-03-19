@@ -17,6 +17,14 @@ class PostController extends Controller
         ]);
     }
 
+    public function show(Post $post)
+    {
+        $post->load('comments', 'comments.user');
+        return Inertia::render('Posts/Show', [
+            'post' => $post
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('Posts/Create');
